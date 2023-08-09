@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="371dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="-38dp"
+        android:layout_marginBottom="557dp"
+        android:text="Simple Calculator"
+        android:textColor="#EC0A0A"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="142dp"
+        android:layout_marginBottom="331dp"
+        android:background="#191717"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="#F3F6F3"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="470dp"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:hint="Enter the 1st number"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textColor="#451313"
+        android:textColorHint="#3A2323" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="83dp"
+        android:layout_marginBottom="409dp"
+        android:ems="10"
+        android:hint="Enter the 2nd number"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textColorHint="#4A2828" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="235dp"
+        android:layout_marginBottom="199dp"
+        android:text="ADD"
+        android:onClick="add"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="200dp"
+        android:text="SUB"
+        android:onClick="sub"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="231dp"
+        android:layout_marginBottom="104dp"
+        android:text="MUL"
+        android:onClick="mul"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="102dp"
+        android:text="DIV"
+        android:onClick="div"
+        android:textSize="16sp" />
+
+</RelativeLayout>
+
+JAVA Code
+package com.example.program2;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+EditText e1, e2;
+TextView tv;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        e1=findViewById(R.id.editText1);
+        e2=findViewById(R.id.editText2);
+        tv=findViewById(R.id.textView);
+    }
+    public void add(View v) {
+        int n1=Integer.parseInt(e1.getText().toString());
+        int n2=Integer.parseInt(e2.getText().toString());
+        int res=n1+n2;
+        tv.setText(""+res);
+    }
+    public void sub(View v) {
+        int n1 = Integer.parseInt(e1.getText().toString());
+        int n2 = Integer.parseInt(e2.getText().toString());
+        int res = n1 - n2;
+        tv.setText(""+res);
+    }
+    public void mul(View v) {
+        int n1 = Integer.parseInt(e1.getText().toString());
+        int n2 = Integer.parseInt(e2.getText().toString());
+        int res = n1 * n2;
+        tv.setText(""+res);
+    }
+    public void div(View v) {
+        int n1 = Integer.parseInt(e1.getText().toString());
+        int n2 = Integer.parseInt(e2.getText().toString());
+        float res = n1 / n2;
+        tv.setText((""+res));
+    }
+}

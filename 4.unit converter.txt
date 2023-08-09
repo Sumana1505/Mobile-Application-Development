@@ -1,0 +1,235 @@
+package com.example.prog3;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    EditText inputEditText;
+    RadioButton inputRadioMeter, inputRadioCentimeter, inputRadioFeet;
+    RadioButton outputRadioMeter, outputRadioCentimeter, outputRadioFeet;
+    TextView tv;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        inputEditText = findViewById(R.id.inputEditText);
+        inputRadioMeter = findViewById(R.id.inputRadioMeter);
+        inputRadioCentimeter = findViewById(R.id.inputRadioCentimeter);
+        inputRadioFeet = findViewById(R.id.inputRadioFeet);
+        outputRadioMeter = findViewById(R.id.outputRadioMeter);
+        outputRadioCentimeter = findViewById(R.id.outputRadioCentimeter);
+        outputRadioFeet = findViewById(R.id.outputRadioFeet);
+        tv = findViewById(R.id.textView2);
+        Button convert = findViewById(R.id.button);
+        convert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                convertUnits();
+            }
+        });
+    }
+    public void convertUnits(){
+        String inputStr = inputEditText.getText().toString().trim();
+        if(TextUtils.isEmpty(inputStr)){
+            tv.setText("Please enter a value to convert");
+            return;
+        }
+        double inputValue = Double.parseDouble(inputStr);
+        double meter = 0;
+        double centimeter = 0;
+        double feet = 0;
+        if(inputRadioMeter.isChecked()){
+            meter = inputValue;
+        }
+        else if(inputRadioCentimeter.isChecked()){
+            centimeter = inputValue;
+        }
+        else if(inputRadioFeet.isChecked()){
+            feet = inputValue;
+        }
+        if(outputRadioMeter.isChecked()){
+            if(meter > 0){
+                tv.setText(String.format("%.2f Meters", meter));
+            }
+            else if(centimeter > 0){
+                meter = centimeter / 100.0;
+                tv.setText(String.format("%.2f Meters", meter));
+            }
+            else if(feet > 0){
+                meter = feet / 3.2808;
+                tv.setText(String.format("%.2f Meters", meter));
+            }
+        }
+
+        if(outputRadioCentimeter.isChecked()){
+            if(centimeter > 0){
+                tv.setText(String.format("%.2f Centimeters", centimeter));
+            }
+            else if(meter > 0){
+                centimeter = meter * 100.0;
+                tv.setText(String.format("%.2f Centimeters", centimeter));
+            }
+            else if(feet > 0){
+                centimeter = feet / 0.032808;
+                tv.setText(String.format("%.2f Centimeters", centimeter));
+            }
+    }
+
+        if(outputRadioFeet.isChecked()){
+            if(feet > 0){
+                tv.setText(String.format("%.2f feet", feet));
+            }
+            else if(centimeter > 0){
+                feet = centimeter / 38.48;
+                tv.setText(String.format("%.2f feet", feet));
+            }
+            else if(meter > 0){
+                feet = meter * 3.2808;
+                tv.setText(String.format("%.2f feet", feet));
+            }
+        }
+}}
+
+XML Code
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="61dp"
+        android:layout_marginBottom="544dp"
+        android:text="UNIT CONVERTOR"
+        android:textColor="#673AB7"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/inputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="95dp"
+        android:layout_marginBottom="478dp"
+        android:hint="Enter the value to convert:"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
+    <RadioGroup
+        android:layout_width="382dp"
+        android:layout_height="71dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="388dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/inputRadioMeter"
+            android:layout_width="102dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="meter" />
+
+        <RadioButton
+            android:id="@+id/inputRadioCentimeter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="centimeter" />
+
+        <RadioButton
+            android:id="@+id/inputRadioFeet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="feet" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="171dp"
+        android:layout_marginBottom="315dp"
+        android:text="Output"
+        android:textColor="#121111"
+        android:textSize="24sp" />
+
+    <RadioGroup
+        android:layout_width="366dp"
+        android:layout_height="65dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="227dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/outputRadioMeter"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="meter" />
+
+        <RadioButton
+            android:id="@+id/outputRadioCentimeter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="centimeter" />
+
+        <RadioButton
+            android:id="@+id/outputRadioFeet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="feet" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="151dp"
+        android:layout_marginBottom="159dp"
+        android:text="convert" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="133dp"
+        android:layout_height="55dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="133dp"
+        android:layout_marginBottom="100dp"
+        android:textColor="#131313"
+        android:textSize="24sp" />
+
+</RelativeLayout>
